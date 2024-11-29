@@ -1,0 +1,17 @@
+Tarefa 0:
+Título: Implementar cadastro de usuários
+Descrição: Adicionar a função de cadastro de usuários 
+Prioridade: Alta
+Status: Pendente
+
+Tarefa 1:
+Título: Refatorar código de listagem 
+Descrição: 
+Prioridade: Média
+Status: Pendente
+
+Tarefa 2:
+Título: Adicionar função de registrar logs
+Descrição: Registrar logs para controle
+Prioridade: Média
+Status: Pendente
