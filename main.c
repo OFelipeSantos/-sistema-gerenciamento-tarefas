@@ -110,7 +110,7 @@ void cadastrarTarefa (char tarefas[][4][50], int *quantidade, int t) {
         printf ("Limite máximo de tarefas atingido!\n");
     }
 }
-void listarTarefas (char tarefas[][4][50], int quantidade) {
+void listarTarefa (char tarefas[][4][50], int quantidade) {
     if (quantidade > 0) {
         printf ("\n=== Lista de Tarefas ===\n");
         for (int x = 0; x < quantidade; x++) {
