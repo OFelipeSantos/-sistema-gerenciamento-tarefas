@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h> 
 
-void cadastrarTarefa (char tarefas [][4][50], int *quantidade);
+void cadastrarTarefa (char tarefas [][4][50], int *quantidade, int t);
 void listarTarefa (char tarefas [][4][50], int quantidade);
 void editarTarefa (char tarefas [][4][50], int indice);
 void excluirTarefa (char tarefas [][4][50], int *quantidade, int indice);
@@ -14,6 +14,7 @@ int main()
     
     printf ("Informe o limite de tarefas (linhas da matriz): ");
     scanf ("%d", &t);
+    getchar (); 
     
     char tarefas[t][4][50];
     int quantidade = 0, indice, opcao = 0;
@@ -26,13 +27,13 @@ int main()
         printf ("4. Excluir Tarefa\n");
         printf ("5. Salvar Tarefas em Arquivo\n");
         printf ("6. Sair\n"); 
-        printf ("Escolha uma opcao: ");
+        printf ("Escolha uma opção: ");
         scanf ("%d", &opcao);
         getchar ();
         
         switch (opcao) {
             case 1: 
-                cadastrarTarefa (tarefas, &quantidade);
+                cadastrarTarefa (tarefas, &quantidade, t);
                 break;
                 
             case 2: 
@@ -67,7 +68,8 @@ int main()
                 } else {
                     printf ("Nenhuma tarefa cadastrada.\n");
                 }
-                
+                break;
+                    
             case 5: 
                 salvarTarefasEmArquivo (tarefas, quantidade);
                 break;
@@ -84,7 +86,7 @@ int main()
     return 0;
 }
 
-void cadastrarTarefa (char tarefas[t][4][50], int *quantidade) {
+void cadastrarTarefa (char tarefas[t][4][50], int *quantidade, int t) {
     if (*quantidade < t) {
         printf ("Digite o título da tarefa: ");
         fgets (tarefas[*quantidade][0], 50, stdin);
@@ -148,9 +150,26 @@ void editarTarefa (char tarefas[][4][50], int indice) {
 void excluirTarefa (char tarefas[t][4][50], int *quantidade, int indice) {
     for (int x = indice; x < *quantidade - 1; x++) {
         for (int y = 0; y < 4; y++) {
-            strcpy(tarefas[x][y], tarefas[x + 1][y]);
+            strcpy (tarefas[x][y], tarefas[x + 1][y]);
         }
     }
     (*quantidade)--;
-    printf("Tarefa excluída com sucesso!\n");
+    printf ("Tarefa excluída com sucesso!\n");
+}
+
+void salvarTarefasEmArquivo (char tarefas[][4][50], int quantidade) {
+    FILE *arquivo = fopen ("tarefas.txt", "w");
+    if (arquivo != NULL) {
+        for (int x = 0; x < quantidade; x++) {
+            fprintf (arquivo, "Tarefa %d:\n", x);
+            fprintf (arquivo, "Título: %s\n", tarefas[x][0]);
+            fprintf (arquivo, "Descrição: %s\n", tarefas[x][1]);
+            fprintf (arquivo, "Prioridade: %s\n", tarefas[x][2]);
+            fprintf (arquivo, "Status: %s\n\n", tarefas[x][3]);
+        }
+        fclose (arquivo);
+        printf ("Tarefas salvas em tarefas.txt com sucesso!\n");
+    } else {
+        printf ("Erro ao salvar tarefas em arquivo.\n");
+    }
 }
