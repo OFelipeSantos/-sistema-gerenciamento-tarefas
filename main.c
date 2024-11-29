@@ -41,80 +41,116 @@ int main()
             
             case 3: 
                 if (quantidade > 0) {
-                    printf("Digite o indice da tarefa a editar: ");
-                    scanf("%d", &indice);
-                    getchar();
+                    printf ("Digite o indice da tarefa a editar: ");
+                    scanf ("%d", &indice);
+                    getchar ();
                     if (indice >= 0 && indice < quantidade) {
-                        editarTarefa(tarefas, indice);
+                        editarTarefa (tarefas, indice);
                     } else {
-                        printf("Indice invalido!\n");
+                        printf ("Indice invalido!\n");
                     }
                 } else {
-                    printf("Nenhuma tarefa cadastrada.\n");
+                    printf ("Nenhuma tarefa cadastrada.\n");
                 }
                 break;
             
             case 4: 
                 if (quantidade > 0) {
-                    printf("Digite o indice da tarefa a excluir: ");
-                    scanf("%d", &indice);
-                    getchar();
+                    printf ("Digite o indice da tarefa a excluir: ");
+                    scanf ("%d", &indice);
+                    getchar ();
                     if (indice >= 0 && indice < quantidade) {
-                        excluirTarefa(tarefas, &quantidade, indice);
+                        excluirTarefa (tarefas, &quantidade, indice);
                     } else {
-                        printf("Indice invalido!\n");
+                        printf ("Indice invalido!\n");
                     }
                 } else {
-                    printf("Nenhuma tarefa cadastrada.\n");
+                    printf ("Nenhuma tarefa cadastrada.\n");
                 }
                 
             case 5: 
-                salvarTarefasEmArquivo(tarefas, quantidade);
+                salvarTarefasEmArquivo (tarefas, quantidade);
                 break;
                 
             case 6: 
-                printf("Encerrando o programa.\n");
+                printf ("Encerrando o programa.\n");
                 break;
                 
             default:
-                printf("Opcao invalida!\n");
+                printf ("Opção inválida!\n");
         }
     }
 
     return 0;
 }
 
-void cadastrarTarefa(char tarefas[t][4][50], int *quantidade) {
+void cadastrarTarefa (char tarefas[t][4][50], int *quantidade) {
     if (*quantidade < t) {
-        printf("Digite o titulo da tarefa: ");
-        fgets(tarefas[*quantidade][0], 50, stdin);
+        printf ("Digite o título da tarefa: ");
+        fgets (tarefas[*quantidade][0], 50, stdin);
         tarefas[*quantidade][0][strcspn(tarefas[*quantidade][0], "\n")] = 0;
         
-        printf("Digite a descricao da tarefa: ");
-        fgets(tarefas[*quantidade][1], 50, stdin);
+        printf ("Digite a descrição da tarefa: ");
+        fgets (tarefas[*quantidade][1], 50, stdin);
         tarefas[*quantidade][1][strcspn(tarefas[*quantidade][1], "\n")] = 0;
 
-        printf("Digite a prioridade da tarefa (Alta, Media, Baixa): ");
-        fgets(tarefas[*quantidade][2], 50, stdin);
+        printf ("Digite a prioridade da tarefa (Alta, Media, Baixa): ");
+        fgets (tarefas[*quantidade][2], 50, stdin);
         tarefas[*quantidade][2][strcspn(tarefas[*quantidade][2], "\n")] = 0;
 
-        printf("Digite o status da tarefa (Pendente, Concluido): ");
-        fgets(tarefas[*quantidade][3], 50, stdin);
+        printf ("Digite o status da tarefa (Pendente, Concluido): ");
+        fgets (tarefas[*quantidade][3], 50, stdin);
         tarefas[*quantidade][3][strcspn(tarefas[*quantidade][3], "\n")] = 0;
 
         (*quantidade)++;
-        printf("Tarefa cadastrada com sucesso!\n");
+        printf ("Tarefa cadastrada com sucesso!\n");
     } else {
-        printf("Limite maximo de tarefas atingido!\n");
+        printf ("Limite máximo de tarefas atingido!\n");
+    }
+}
+void listarTarefas (char tarefas[][4][50], int quantidade) {
+    if (quantidade > 0) {
+        printf ("\n=== Lista de Tarefas ===\n");
+        for (int x = 0; x < quantidade; x++) {
+            printf ("Tarefa %d:\n", x);
+            printf ("Título: %s\n", tarefas[x][0]);
+            printf ("Descrição: %s\n", tarefas[x][1]);
+            printf ("Prioridade: %s\n", tarefas[x][2]);
+            printf ("Status: %s\n\n", tarefas[x][3]);
+        }
+    } else {
+        printf ("Nenhuma tarefa cadastrada.\n");
     }
 }
 
+void editarTarefa (char tarefas[][4][50], int indice) {
+    printf ("Editando a tarefa %d:\n", indice);
 
-void excluirTarefa(char tarefas[t][4][50], int *quantidade, int indice) {
+    printf("Digite o novo título da tarefa: ");
+    fgets (tarefas[indice][0], 50, stdin);
+    tarefas[indice][0][strcspn(tarefas[indice][0], "\n")] = 0;
+
+    printf ("Digite a nova descrição da tarefa: ");
+    fgets(tarefas[indice][1], 50, stdin);
+    tarefas[indice][1][strcspn(tarefas[indice][1], "\n")] = 0;
+
+    printf ("Digite a nova prioridade da tarefa: ");
+    fgets (tarefas[indice][2], 50, stdin);
+    tarefas[indice][2][strcspn(tarefas[indice][2], "\n")] = 0;
+
+    printf ("Digite o novo status da tarefa: ");
+    fgets (tarefas[indice][3], 50, stdin);
+    tarefas[indice][3][strcspn(tarefas[indice][3], "\n")] = 0;
+
+    printf ("Tarefa editada com sucesso!\n");
+}
+
+void excluirTarefa (char tarefas[t][4][50], int *quantidade, int indice) {
     for (int x = indice; x < *quantidade - 1; x++) {
         for (int y = 0; y < 4; y++) {
             strcpy(tarefas[x][y], tarefas[x + 1][y]);
         }
     }
     (*quantidade)--;
-    printf("Tarefa excluida com sucesso!\n");
+    printf("Tarefa excluída com sucesso!\n");
+}
