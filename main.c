@@ -86,7 +86,7 @@ int main()
     return 0;
 }
 
-void cadastrarTarefa (char tarefas[t][4][50], int *quantidade, int t) {
+void cadastrarTarefa (char tarefas[][4][50], int *quantidade, int t) {
     if (*quantidade < t) {
         printf ("Digite o título da tarefa: ");
         fgets (tarefas[*quantidade][0], 50, stdin);
@@ -147,7 +147,7 @@ void editarTarefa (char tarefas[][4][50], int indice) {
     printf ("Tarefa editada com sucesso!\n");
 }
 
-void excluirTarefa (char tarefas[t][4][50], int *quantidade, int indice) {
+void excluirTarefa (char tarefas[][4][50], int *quantidade, int indice) {
     for (int x = indice; x < *quantidade - 1; x++) {
         for (int y = 0; y < 4; y++) {
             strcpy (tarefas[x][y], tarefas[x + 1][y]);
